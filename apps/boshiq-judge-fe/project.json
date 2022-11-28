@@ -1,20 +1,22 @@
 {
   "name": "boshiq-judge",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/boshiq-judge",
+  "sourceRoot": "apps/boshiq-judge-fe",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/next:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/boshiq-judge",
-        "outputPath": "dist/apps/boshiq-judge"
+        "root": "apps/boshiq-judge-fe",
+        "outputPath": "dist/apps/boshiq-judge-fe"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/boshiq-judge"
+          "outputPath": "apps/boshiq-judge-fe"
         },
         "production": {}
       }
@@ -45,17 +47,23 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "apps/boshiq-judge/jest.config.ts",
+        "jestConfig": "apps/boshiq-judge-fe/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/boshiq-judge/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/boshiq-judge-fe/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     }
   },
