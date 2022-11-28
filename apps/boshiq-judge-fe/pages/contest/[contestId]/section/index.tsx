@@ -1,14 +1,13 @@
+import { SectionPage } from '@components/pages/contest/contestId/section/sectionPage';
 import Head from 'next/head';
-import IndexPage from '@components/pages/indexPage';
-
 export function Index() {
   return (
     <>
       <Head>
-        <title>Welcome to BoshiQ Judge!</title>
+        <title>セクション一覧ページ</title>
       </Head>
       <main className="app">
-        <IndexPage />
+        <SectionPage />
       </main>
     </>
   );

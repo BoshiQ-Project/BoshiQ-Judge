@@ -1,14 +1,13 @@
+import { RoundPage } from '@components/pages/contest/contestId/section/sectionId/roundNumber/roundPage';
 import Head from 'next/head';
-import IndexPage from '@components/pages/indexPage';
-
 export function Index() {
   return (
     <>
       <Head>
-        <title>Welcome to BoshiQ Judge!</title>
+        <title>ラウンド詳細ページ</title>
       </Head>
       <main className="app">
-        <IndexPage />
+        <RoundPage />
       </main>
     </>
   );

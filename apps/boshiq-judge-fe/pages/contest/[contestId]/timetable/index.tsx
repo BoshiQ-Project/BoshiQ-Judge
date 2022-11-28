@@ -1,14 +1,13 @@
+import TimeTablePage from '@components/pages/contest/contestId/timetable/timetablePage';
 import Head from 'next/head';
-import IndexPage from '@components/pages/indexPage';
-
 export function Index() {
   return (
     <>
       <Head>
-        <title>Welcome to BoshiQ Judge!</title>
+        <title>タイムテーブル設定ページ</title>
       </Head>
       <main className="app">
-        <IndexPage />
+        <TimeTablePage />
       </main>
     </>
   );
