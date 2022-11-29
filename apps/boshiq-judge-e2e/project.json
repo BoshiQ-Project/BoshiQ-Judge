@@ -8,23 +8,29 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/boshiq-judge-e2e/cypress.config.ts",
-        "devServerTarget": "boshiq-judge:serve:development",
+        "devServerTarget": "boshiq-judge-fe:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "boshiq-judge:serve:production"
+          "devServerTarget": "boshiq-judge-fe:serve:production"
         }
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/boshiq-judge-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/boshiq-judge-e2e/**/*.{js,ts}"
+        ]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["boshiq-judge"]
+  "implicitDependencies": [
+    "boshiq-judge-fe"
+  ]
 }

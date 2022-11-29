@@ -1,5 +1,5 @@
 {
-  "name": "boshiq-judge",
+  "name": "boshiq-judge-fe",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/boshiq-judge-fe",
   "projectType": "application",
@@ -25,16 +25,16 @@
       "executor": "@nrwl/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "boshiq-judge:build",
+        "buildTarget": "boshiq-judge-fe:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "boshiq-judge:build:development",
+          "buildTarget": "boshiq-judge-fe:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "boshiq-judge:build:production",
+          "buildTarget": "boshiq-judge-fe:build:production",
           "dev": false
         }
       }
@@ -42,7 +42,7 @@
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
-        "buildTarget": "boshiq-judge:build:production"
+        "buildTarget": "boshiq-judge-fe:build:production"
       }
     },
     "test": {
