@@ -10,7 +10,7 @@ export class ContestResolver {
   @Query(() => [ContestDto], {
     description: 'コンテストの一覧を取得する',
   })
-  async machines(
+  async contests(
     @Args('user_id', { type: () => String })
     userId: string
   ): Promise<ContestDto[]> {
