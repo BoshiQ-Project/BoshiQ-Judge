@@ -1,0 +1,9 @@
+query ContestPage($userId: String!) {
+  contests(user_id: $userId) {
+    id
+    admin_user_id
+    name
+    date
+    memo
+  }
+}

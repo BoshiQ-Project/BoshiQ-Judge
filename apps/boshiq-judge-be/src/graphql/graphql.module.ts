@@ -8,7 +8,7 @@ import { ContestModule } from './contest/contest.module';
     ContestModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'schema.gql',
+      autoSchemaFile: 'apps/boshiq-judge-fe/graphql/schema.gql',
       playground: true,
     }),
   ],

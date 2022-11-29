@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import Link from 'next/link';
-
 const StyledPage = styled.div`
   .page {
   }
