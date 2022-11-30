@@ -1,0 +1,20 @@
+query SectionPage($contestId: Int!) {
+  sections(contestId: $contestId) {
+    ...SectionPageSection
+  }
+  contest(contestId: $contestId){
+    ...SectionPageContest
+  }
+}
+
+fragment SectionPageSection on SectionDto{
+  id
+  name
+  danceType
+  memo
+}
+
+fragment SectionPageContest on ContestDto{
+  id
+  name
+}

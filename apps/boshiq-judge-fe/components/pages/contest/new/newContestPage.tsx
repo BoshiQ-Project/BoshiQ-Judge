@@ -26,7 +26,7 @@ export function NewContestPage() {
     async (name: string, date: string, memo: string) => {
       const result = await executeMutation({
         input: {
-          admin_user_id: 'ogura',
+          adminUserId: 'ogura',
           name,
           date: date === '' ? undefined : date,
           memo,

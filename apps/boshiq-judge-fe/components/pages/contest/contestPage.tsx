@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { Button, Table, Text } from '@mantine/core';
 import { ContestDto, useContestPageQuery } from '@graphql/graphql';
+import { FC } from 'react';
 
 const StyledPage = styled.div`
   .page {
@@ -23,14 +24,14 @@ export function ContestPage() {
 
   return (
     <StyledPage>
-      <NewContestContainer>
+      <ContestHeaderContainer>
         <Text fz="lg" fw={700}>
           大会一覧
         </Text>
         <Link href="/contest/new">
           <Button>new Contest</Button>
         </Link>
-      </NewContestContainer>
+      </ContestHeaderContainer>
       <ContestList contests={contests} />
     </StyledPage>
   );
@@ -40,7 +41,7 @@ type ContestListProps = {
   contests: ContestDto[];
 };
 
-const ContestList: React.FC<ContestListProps> = ({ contests }) => {
+const ContestList: FC<ContestListProps> = ({ contests }) => {
   contests.sort(
     ({ name: nameA, date: dateA }, { name: nameB, date: dateB }) => {
       if (dateA === undefined && dateB === undefined)
@@ -62,7 +63,9 @@ const ContestList: React.FC<ContestListProps> = ({ contests }) => {
       <tbody>
         {contests.map((contest, ind) => (
           <tr key={contest.id}>
-            <td>{contest.name}</td>
+            <td>
+              <Link href={`/contest/${contest.id}`}>{contest.name}</Link>
+            </td>
             <td>{contest.date ?? '未定'}</td>
             <td>{contest.memo}</td>
           </tr>
@@ -72,9 +75,7 @@ const ContestList: React.FC<ContestListProps> = ({ contests }) => {
   );
 };
 
-const NewContestContainer = styled.div`
+const ContestHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-export default ContestPage;
