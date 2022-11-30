@@ -14,3 +14,26 @@ Local Area Network でジャッジしたい。
 - ORM: prisma
 - BE: NestJS
 - FE: NextJS
+
+## Quick start
+
+### Requirement
+
+- node >= v16
+- yarn
+
+### とにかく始めたい
+
+1. SQLite の migration
+
+```
+$ yarn init-db
+```
+
+2. 走らせる
+
+```
+$ yarn start
+```
+
+http://localhost:4200 で立ち上がります

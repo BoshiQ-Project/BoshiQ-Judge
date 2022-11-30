@@ -6,6 +6,7 @@
     "start": "nx run-many --target=serve --projects=boshiq-judge-be,boshiq-judge-fe --parallel & graphql-codegen --config codegen.ts --watch",
     "build": "nx build",
     "test": "nx test",
+    "init-db": "prisma migrate dev --name init",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "private": true,
@@ -78,7 +79,7 @@
     "jest-environment-jsdom": "28.1.1",
     "nx": "15.2.1",
     "prettier": "^2.6.2",
-    "prisma": "^4.6.1",
+    "prisma": "^4.7.0",
     "react-test-renderer": "18.2.0",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
