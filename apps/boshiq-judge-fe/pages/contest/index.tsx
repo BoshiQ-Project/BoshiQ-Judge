@@ -1,4 +1,4 @@
-import ContestPage from '@components/pages/contest/contestPage';
+import { ContestPage } from '@components/pages/contest/contestPage';
 import Head from 'next/head';
 
 export function Index() {

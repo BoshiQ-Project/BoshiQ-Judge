@@ -3,20 +3,24 @@ import { ContestDto } from '../../graphql/contest/contest.dto';
 
 export class Contest {
   id: number;
-  admin_user_id: string;
+  adminUserId: string;
   name: string;
-  date: string | true;
+  date: string | null;
   memo: string | null;
 
-  constructor(init?: Partial<Contest>) {
-    Object.assign(this, init);
+  constructor(init: Contest) {
+    this.id = init.id;
+    this.adminUserId = init.adminUserId;
+    this.name = init.name;
+    this.date = init.date;
+    this.memo = init.memo;
   }
 }
 
 export function prismaToContest(prismaContest: PrismaContest): Contest {
   return new Contest({
     id: prismaContest.id,
-    admin_user_id: prismaContest.admin,
+    adminUserId: prismaContest.admin,
     name: prismaContest.name,
     date: prismaContest.date,
     memo: prismaContest.memo,
@@ -26,7 +30,7 @@ export function prismaToContest(prismaContest: PrismaContest): Contest {
 export function contestToGraphQL(contest: Contest): ContestDto {
   return new ContestDto({
     id: contest.id,
-    admin_user_id: contest.admin_user_id,
+    adminUserId: contest.adminUserId,
     name: contest.name,
     date: contest.date,
     memo: contest.memo,

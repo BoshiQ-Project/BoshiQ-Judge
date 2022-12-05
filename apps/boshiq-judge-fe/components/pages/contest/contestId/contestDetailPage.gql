@@ -1,0 +1,13 @@
+query ContestDetailPage($contestId: Int!) {
+  contest(contestId: $contestId) {
+    ...ContestDetailPageContest
+  }
+}
+
+fragment ContestDetailPageContest on ContestDto{
+  id
+  adminUserId
+  name
+  date
+  memo
+}

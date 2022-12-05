@@ -27,7 +27,7 @@ Local Area Network でジャッジしたい。
 1. SQLite の migration
 
 ```
-$ yarn init-db
+$ yarn migrate
 ```
 
 2. 走らせる

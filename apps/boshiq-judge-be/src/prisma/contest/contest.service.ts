@@ -7,22 +7,23 @@ import { Contest, prismaToContest } from '../../domain/contest/contest';
 export class ContestService {
   constructor(private prisma: PrismaService) {}
 
-  async contest(
-    contestWhereUniqueInput: Prisma.ContestWhereUniqueInput
-  ): Promise<Contest | null> {
+  async contest(contestId: number): Promise<Contest> {
     return this.prisma.contest
       .findUnique({
-        where: contestWhereUniqueInput,
+        where: { id: contestId },
       })
-      .then(prismaToContest);
+      .then((result) => {
+        if (result === null) throw `ContestId ${contestId} Not Found`;
+        return prismaToContest(result);
+      });
   }
 
-  async contests_by_admin(admin_user_id: string): Promise<Contest[]> {
+  async contests_by_admin(adminUserId: string): Promise<Contest[]> {
     return this.prisma.contest
       .findMany({
         where: {
           admin: {
-            equals: admin_user_id,
+            equals: adminUserId,
           },
         },
       })
@@ -37,10 +38,12 @@ export class ContestService {
       .then(prismaToContest);
   }
 
-  async deleteUser(where: Prisma.ContestWhereUniqueInput): Promise<Contest> {
+  async deleteContest(contestId: number): Promise<Contest> {
     return this.prisma.contest
       .delete({
-        where,
+        where: {
+          id: contestId,
+        },
       })
       .then(prismaToContest);
   }

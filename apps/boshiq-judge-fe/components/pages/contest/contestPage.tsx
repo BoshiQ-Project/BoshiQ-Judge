@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { Button, Table, Text } from '@mantine/core';
+import { Button, Modal, Table, Text } from '@mantine/core';
 import { ContestDto, useContestPageQuery } from '@graphql/graphql';
+import { FC, useMemo, useState } from 'react';
+import { NewContestForm } from '@components/pages/contest/newContestForm';
 
 const StyledPage = styled.div`
   .page {
@@ -14,7 +16,9 @@ export function ContestPage() {
       userId: 'ogura',
     },
   });
-  console.log(result);
+
+  const [modalOpen, setModalOpen] = useState(false);
+
   if (!result.data) {
     return <div>ERROR</div>;
   }
@@ -23,15 +27,17 @@ export function ContestPage() {
 
   return (
     <StyledPage>
-      <NewContestContainer>
+      <ContestHeaderContainer>
         <Text fz="lg" fw={700}>
           大会一覧
         </Text>
-        <Link href="/contest/new">
-          <Button>new Contest</Button>
-        </Link>
-      </NewContestContainer>
+        <Button onClick={() => setModalOpen(true)}>new Contest</Button>
+      </ContestHeaderContainer>
       <ContestList contests={contests} />
+
+      <Modal opened={modalOpen} onClose={() => setModalOpen(false)}>
+        <NewContestForm closeForm={() => setModalOpen(false)} />
+      </Modal>
     </StyledPage>
   );
 }
@@ -40,16 +46,21 @@ type ContestListProps = {
   contests: ContestDto[];
 };
 
-const ContestList: React.FC<ContestListProps> = ({ contests }) => {
-  contests.sort(
-    ({ name: nameA, date: dateA }, { name: nameB, date: dateB }) => {
-      if (dateA === undefined && dateB === undefined)
-        return nameA > nameB ? 1 : -1;
-      if (dateA == undefined) return -1;
-      if (dateB == undefined) return 1;
-      return dateA > dateB ? -1 : 1;
-    }
-  );
+const ContestList: FC<ContestListProps> = ({ contests }) => {
+  const sortedContest = useMemo(() => {
+    const sortedContest = [...contests];
+    sortedContest.sort(
+      ({ name: nameA, date: dateA }, { name: nameB, date: dateB }) => {
+        if (dateA === undefined && dateB === undefined)
+          return nameA > nameB ? 1 : -1;
+        if (dateA == undefined) return -1;
+        if (dateB == undefined) return 1;
+        return dateA > dateB ? -1 : 1;
+      }
+    );
+    return sortedContest;
+  }, [contests]);
+
   return (
     <Table>
       <thead>
@@ -60,9 +71,11 @@ const ContestList: React.FC<ContestListProps> = ({ contests }) => {
         </tr>
       </thead>
       <tbody>
-        {contests.map((contest, ind) => (
+        {sortedContest.map((contest, ind) => (
           <tr key={contest.id}>
-            <td>{contest.name}</td>
+            <td>
+              <Link href={`/contest/${contest.id}`}>{contest.name}</Link>
+            </td>
             <td>{contest.date ?? '未定'}</td>
             <td>{contest.memo}</td>
           </tr>
@@ -72,9 +85,7 @@ const ContestList: React.FC<ContestListProps> = ({ contests }) => {
   );
 };
 
-const NewContestContainer = styled.div`
+const ContestHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-export default ContestPage;

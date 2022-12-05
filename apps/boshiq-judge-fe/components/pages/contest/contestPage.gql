@@ -1,9 +1,15 @@
 query ContestPage($userId: String!) {
-  contests(user_id: $userId) {
+  contests(userId: $userId) {
     id
-    admin_user_id
+    adminUserId
     name
     date
     memo
+  }
+}
+
+mutation createContest($input: CreateContestInput!) {
+  createContest(input: $input) {
+    id
   }
 }

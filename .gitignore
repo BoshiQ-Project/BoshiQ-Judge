@@ -44,3 +44,7 @@ Thumbs.db
 # Auto generated files
 schema.gql
 graphql.ts
+
+# SQLite db file
+dev.db
+dev.db-journal

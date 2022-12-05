@@ -1,5 +1,5 @@
-import { SectionPage } from '@components/pages/contest/contestId/section/sectionPage';
 import Head from 'next/head';
+import ContestDetailPage from '@components/pages/contest/contestId/contestDetailPage';
 import { useRouter } from 'next/router';
 
 export function Index() {
@@ -11,10 +11,10 @@ export function Index() {
   return (
     <>
       <Head>
-        <title>セクション一覧ページ</title>
+        <title>コンテスト詳細ページ</title>
       </Head>
       <main className="app">
-        <SectionPage contestId={parseInt(contestId)} />
+        <ContestDetailPage contestId={parseInt(contestId)} />
       </main>
     </>
   );

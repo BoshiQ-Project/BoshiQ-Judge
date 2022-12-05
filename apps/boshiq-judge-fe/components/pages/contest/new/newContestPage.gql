@@ -1,5 +1,0 @@
-mutation createContest($input: CreateContestInput!) {
-  createContest(input: $input) {
-    id
-  }
-}

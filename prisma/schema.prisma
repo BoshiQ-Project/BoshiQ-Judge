@@ -17,4 +17,14 @@ model Contest {
   name String
   date String?
   memo String
+  sections Section[]
+}
+
+model Section {
+  id Int @default(autoincrement()) @id
+  contest Contest @relation(fields: [contestId], references: [id])
+  contestId Int
+  name String
+  danceType String
+  memo String
 }

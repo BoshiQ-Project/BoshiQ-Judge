@@ -8,5 +8,3 @@ const StyledPage = styled.div`
 export function SectionDetailPage() {
   return <StyledPage>セクション詳細</StyledPage>;
 }
-
-export default SectionDetailPage;
