@@ -12,13 +12,17 @@ export class ContestDto {
   readonly name: string;
 
   @Field(() => String, { description: '開催日(YYYY-MM-DD)', nullable: true })
-  readonly date: string | true;
+  readonly date: string | null;
 
   @Field(() => String, { description: '備考', nullable: true })
   readonly memo: string | null;
 
-  constructor(init?: Partial<ContestDto>) {
-    Object.assign(this, init);
+  constructor(init: ContestDto) {
+    this.id = init.id;
+    this.adminUserId = init.adminUserId;
+    this.name = init.name;
+    this.date = init.date;
+    this.memo = init.memo;
   }
 }
 
@@ -36,7 +40,10 @@ export class CreateContestInput {
   @Field(() => String, { description: '備考', nullable: true })
   readonly memo: string | null;
 
-  constructor(init?: Partial<ContestDto>) {
-    Object.assign(this, init);
+  constructor(init: CreateContestInput) {
+    this.adminUserId = init?.adminUserId;
+    this.name = init?.name;
+    this.date = init?.date;
+    this.memo = init?.memo;
   }
 }

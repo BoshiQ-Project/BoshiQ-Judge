@@ -38,7 +38,7 @@ export class ContestResolver {
         admin: input.adminUserId,
         name: input.name,
         date: input.date,
-        memo: input.memo,
+        memo: input.memo ?? '',
       })
       .then(contestToGraphQL);
   }

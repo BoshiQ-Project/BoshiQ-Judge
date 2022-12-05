@@ -18,3 +18,9 @@ fragment SectionPageContest on ContestDto{
   id
   name
 }
+
+mutation createSection($input: CreateSectionInput!) {
+  createSection(input: $input) {
+    id
+  }
+}

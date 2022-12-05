@@ -1,11 +1,6 @@
-import styled from '@emotion/styled';
 import { FC } from 'react';
 import { useContestDetailPageQuery } from '@graphql/graphql';
 import Link from 'next/link';
-const StyledPage = styled.div`
-  .page {
-  }
-`;
 
 export type ContestDetailPageProps = {
   contestId: number;
@@ -20,7 +15,6 @@ export const ContestDetailPage: FC<ContestDetailPageProps> = ({
     },
   });
 
-  console.log(result);
   if (!result.data) {
     return <div>LOADING</div>;
   }

@@ -1,10 +1,13 @@
 import { TextInput, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useCreateContestMutation } from 'graphql/graphql';
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { FC, useCallback } from 'react';
 
-export function NewContestPage() {
+type NewContestFormProps = {
+  closeForm: () => void;
+};
+
+export const NewContestForm: FC<NewContestFormProps> = ({ closeForm }) => {
   const form = useForm({
     initialValues: {
       name: '',
@@ -20,8 +23,6 @@ export function NewContestPage() {
 
   const [, executeMutation] = useCreateContestMutation();
 
-  const router = useRouter();
-
   const createContest = useCallback(
     async (name: string, date: string, memo: string) => {
       const result = await executeMutation({
@@ -33,12 +34,12 @@ export function NewContestPage() {
         },
       });
       if (result.error === undefined) {
-        router.push('/contest');
+        closeForm();
       } else {
         console.error(result.error);
       }
     },
-    [executeMutation, router]
+    [executeMutation, closeForm]
   );
 
   return (
@@ -61,6 +62,4 @@ export function NewContestPage() {
       </form>
     </Box>
   );
-}
-
-export default NewContestPage;
+};

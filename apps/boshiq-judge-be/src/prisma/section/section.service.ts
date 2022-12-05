@@ -7,12 +7,15 @@ import { Section, prismaToSection } from '../../domain/section/section';
 export class SectionService {
   constructor(private prisma: PrismaService) {}
 
-  async section(sectionId: number): Promise<Section | null> {
+  async section(sectionId: number): Promise<Section> {
     return this.prisma.section
       .findUnique({
         where: { id: sectionId },
       })
-      .then(prismaToSection);
+      .then((result) => {
+        if (result === null) throw `SectionId ${sectionId} not found`;
+        return prismaToSection(result);
+      });
   }
 
   async sections_by_contest(contestId: number): Promise<Section[]> {

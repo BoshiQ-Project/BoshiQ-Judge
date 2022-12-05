@@ -7,12 +7,15 @@ import { Contest, prismaToContest } from '../../domain/contest/contest';
 export class ContestService {
   constructor(private prisma: PrismaService) {}
 
-  async contest(contestId: number): Promise<Contest | null> {
+  async contest(contestId: number): Promise<Contest> {
     return this.prisma.contest
       .findUnique({
         where: { id: contestId },
       })
-      .then(prismaToContest);
+      .then((result) => {
+        if (result === null) throw `ContestId ${contestId} Not Found`;
+        return prismaToContest(result);
+      });
   }
 
   async contests_by_admin(adminUserId: string): Promise<Contest[]> {

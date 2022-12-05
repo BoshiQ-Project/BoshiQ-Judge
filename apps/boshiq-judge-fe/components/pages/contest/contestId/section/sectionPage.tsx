@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
-  ContestDto,
-  SectionPageContestFragment,
   SectionPageSectionFragment,
   useSectionPageQuery,
 } from '@graphql/graphql';
-import { Button, Table, Text } from '@mantine/core';
+import { Button, Modal, Table, Text } from '@mantine/core';
 import Link from 'next/link';
+import { NewSectionForm } from '@components/pages/contest/contestId/section/newSectionForm';
 
 const StyledPage = styled.div`
   .page {
@@ -25,21 +24,28 @@ export const SectionPage: FC<SectionPageProps> = ({ contestId }) => {
     },
   });
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   if (!result.data) {
     return <div>LOADING</div>;
   }
 
   const { contest, sections } = result.data;
-
   return (
     <StyledPage>
       <SectionHeaderContainer>
         <Text fz="lg" fw={700}>
           {contest.name} セクション一覧
         </Text>
-        <Button disabled={true}>new Contest</Button>
+        <Button onClick={() => setModalOpen(true)}>new Section</Button>
       </SectionHeaderContainer>
       <SectionList contestId={contestId} sections={sections} />
+      <Modal opened={modalOpen} onClose={() => setModalOpen(false)}>
+        <NewSectionForm
+          contestId={contestId}
+          closeForm={() => setModalOpen(false)}
+        />
+      </Modal>
     </StyledPage>
   );
 };

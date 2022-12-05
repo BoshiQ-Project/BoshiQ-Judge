@@ -8,8 +8,12 @@ export class Section {
   danceType: string;
   memo: string;
 
-  constructor(init?: Partial<Section>) {
-    Object.assign(this, init);
+  constructor(init: Section) {
+    this.id = init.id;
+    this.contestId = init.contestId;
+    this.name = init.name;
+    this.danceType = init.danceType;
+    this.memo = init.memo;
   }
 }
 

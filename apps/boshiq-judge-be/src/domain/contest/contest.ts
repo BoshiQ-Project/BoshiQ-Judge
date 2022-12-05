@@ -5,11 +5,15 @@ export class Contest {
   id: number;
   adminUserId: string;
   name: string;
-  date: string | true;
+  date: string | null;
   memo: string | null;
 
-  constructor(init?: Partial<Contest>) {
-    Object.assign(this, init);
+  constructor(init: Contest) {
+    this.id = init.id;
+    this.adminUserId = init.adminUserId;
+    this.name = init.name;
+    this.date = init.date;
+    this.memo = init.memo;
   }
 }
 
