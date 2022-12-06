@@ -7,13 +7,19 @@ import { Section, prismaToSection } from '../../domain/section/section';
 export class SectionService {
   constructor(private prisma: PrismaService) {}
 
-  async section(sectionId: number): Promise<Section> {
+  async section(contestId: number, sectionNumber: number): Promise<Section> {
     return this.prisma.section
       .findUnique({
-        where: { id: sectionId },
+        where: {
+          contestId_sectionNumber: {
+            contestId,
+            sectionNumber,
+          },
+        },
       })
       .then((result) => {
-        if (result === null) throw `SectionId ${sectionId} not found`;
+        if (result === null)
+          throw `ContestId: ${contestId}SectionNumber ${sectionNumber} not found`;
         return prismaToSection(result);
       });
   }
@@ -38,11 +44,17 @@ export class SectionService {
       .then(prismaToSection);
   }
 
-  async deleteSection(sectionId: number): Promise<Section> {
+  async deleteSection(
+    contestId: number,
+    sectionNumber: number
+  ): Promise<Section> {
     return this.prisma.section
       .delete({
         where: {
-          id: sectionId,
+          contestId_sectionNumber: {
+            contestId,
+            sectionNumber,
+          },
         },
       })
       .then(prismaToSection);

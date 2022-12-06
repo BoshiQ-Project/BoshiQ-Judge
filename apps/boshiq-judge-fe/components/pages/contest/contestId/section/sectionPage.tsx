@@ -60,6 +60,7 @@ const SectionList: FC<SectionListProps> = ({ contestId, sections }) => {
     <Table>
       <thead>
         <tr>
+          <th>#</th>
           <th>セクション名</th>
           <th>種目</th>
           <th>備考</th>
@@ -67,9 +68,12 @@ const SectionList: FC<SectionListProps> = ({ contestId, sections }) => {
       </thead>
       <tbody>
         {sections.map((section, ind) => (
-          <tr key={section.id}>
+          <tr key={section.sectionNumber}>
+            <td>{section.sectionNumber}</td>
             <td>
-              <Link href={`/contest/${contestId}/section/${section.id}`}>
+              <Link
+                href={`/contest/${contestId}/section/${section.sectionNumber}`}
+              >
                 {section.name}
               </Link>
             </td>

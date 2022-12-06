@@ -8,8 +8,8 @@ import {
 
 @ObjectType({ description: 'セクション' })
 export class SectionDto {
-  @Field(() => Int, { description: 'セクションID' })
-  readonly id: number;
+  @Field(() => Int, { description: 'セクション番号' })
+  readonly sectionNumber: number;
 
   @Field(() => Int, { description: '大会ID' })
   readonly contestId: number;
@@ -24,7 +24,7 @@ export class SectionDto {
   readonly memo: string;
 
   constructor(init: SectionDto) {
-    this.id = init.id;
+    this.sectionNumber = init.sectionNumber;
     this.contestId = init.contestId;
     this.name = init.name;
     this.danceType = init.danceType;
@@ -34,6 +34,9 @@ export class SectionDto {
 
 @InputType('CreateSectionInput')
 export class CreateSectionInput {
+  @Field(() => Int, { description: 'セクション番号' })
+  readonly sectionNumber: number;
+
   @Field(() => Int, { description: '大会ID' })
   readonly contestId: number;
 
@@ -47,6 +50,7 @@ export class CreateSectionInput {
   readonly memo: string;
 
   constructor(init: CreateSectionInput) {
+    this.sectionNumber = init?.sectionNumber;
     this.contestId = init?.contestId;
     this.name = init?.name;
     this.danceType = init?.danceType;

@@ -1,4 +1,11 @@
-import { TextInput, Button, Group, Box, Select } from '@mantine/core';
+import {
+  TextInput,
+  Button,
+  Group,
+  Box,
+  Select,
+  NumberInput,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { DanceType, useCreateSectionMutation } from 'graphql/graphql';
 import { FC, useCallback } from 'react';
@@ -13,11 +20,13 @@ export const NewSectionForm: FC<NewSectionFormParam> = ({
   closeForm,
 }) => {
   const form = useForm<{
+    sectionNumber: number;
     name: string;
     danceType: DanceType | undefined;
     memo: string;
   }>({
     initialValues: {
+      sectionNumber: 0,
       name: '',
       danceType: undefined,
       memo: '',
@@ -27,14 +36,15 @@ export const NewSectionForm: FC<NewSectionFormParam> = ({
   const [, executeMutation] = useCreateSectionMutation();
 
   const createContest = useCallback(
-    async (name: string, danceType: DanceType, memo: string) => {
+    async (input: {
+      sectionNumber: number;
+      name: string;
+      danceType: DanceType;
+      memo: string;
+    }) => {
+      console.log(input);
       const result = await executeMutation({
-        input: {
-          contestId,
-          name,
-          danceType,
-          memo,
-        },
+        input: { ...input, contestId },
       });
       if (result.error === undefined) {
         closeForm();
@@ -47,11 +57,12 @@ export const NewSectionForm: FC<NewSectionFormParam> = ({
 
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
-      <form
-        onSubmit={form.onSubmit(({ name, danceType, memo }) =>
-          createContest(name, danceType, memo)
-        )}
-      >
+      <form onSubmit={form.onSubmit((val) => createContest(val))}>
+        <NumberInput
+          withAsterisk
+          label="セクション番号"
+          {...form.getInputProps('sectionNumber')}
+        />
         <TextInput
           withAsterisk
           label="セクション名"

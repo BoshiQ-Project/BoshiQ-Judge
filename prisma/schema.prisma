@@ -18,13 +18,66 @@ model Contest {
   date String?
   memo String
   sections Section[]
+  participants ContestParticipant[]
 }
 
 model Section {
-  id Int @default(autoincrement()) @id
   contest Contest @relation(fields: [contestId], references: [id])
   contestId Int
+  sectionNumber Int
   name String
   danceType String
   memo String
+  rounds Round[]
+
+  sectionParticipations SectionParticipation[]
+
+  @@id([contestId, sectionNumber])
+}
+
+model Round {
+  section Section @relation(fields: [contestId, sectionNumber], references: [contestId, sectionNumber])
+  contestId Int
+  sectionNumber Int
+  roundNumber Int
+  heatCount Int
+  upCount Int
+  judgeType String
+  @@id([contestId, sectionNumber, roundNumber])
+}
+
+model Dancer {
+  id Int @default(autoincrement()) @id
+  name String
+
+  contestParticipations ContestParticipant[]
+}
+
+model ContestParticipant{
+  contest Contest @relation(fields: [contestId], references: [id])
+  contestId Int
+  participantNumber Int
+  dancer Dancer @relation(fields: [dancerId], references: [id])
+  dancerId Int
+  name String
+  isLeader Boolean
+  isPartner Boolean
+
+  leaderParticipatingSections SectionParticipation[] @relation(name: "leader")
+  followerParticipatingSections SectionParticipation[] @relation(name: "follower")
+
+  @@id([contestId, participantNumber])
+  @@unique([contestId, dancerId])
+}
+
+model SectionParticipation{
+  leader ContestParticipant @relation(name: "leader", fields:[contestId, leaderParticipantNumber], references: [contestId, participantNumber])
+  leaderParticipantNumber Int
+  follower ContestParticipant @relation(name: "follower", fields:[contestId, followerParticipantNumber], references: [contestId, participantNumber])
+  followerParticipantNumber Int
+  section Section @relation(fields: [contestId, sectionNumber], references: [contestId, sectionNumber])
+  contestId Int
+  sectionNumber Int
+  @@id([sectionNumber, leaderParticipantNumber])
+  @@unique([sectionNumber, followerParticipantNumber])
 }

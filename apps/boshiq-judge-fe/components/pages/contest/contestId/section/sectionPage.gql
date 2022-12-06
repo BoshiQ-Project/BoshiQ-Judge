@@ -8,7 +8,7 @@ query SectionPage($contestId: Int!) {
 }
 
 fragment SectionPageSection on SectionDto{
-  id
+  sectionNumber
   name
   danceType
   memo
@@ -21,6 +21,6 @@ fragment SectionPageContest on ContestDto{
 
 mutation createSection($input: CreateSectionInput!) {
   createSection(input: $input) {
-    id
+    sectionNumber
   }
 }
